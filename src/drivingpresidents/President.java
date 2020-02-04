@@ -10,42 +10,41 @@ import static drivingpresidents.Controller.running;
 
 public class President implements Runnable
 {
+    enum PresidentState {TALKING, ANGRY, DRIVING}
+
     private Lock leftCar;
     private Lock rightCar;
     private String name;
     private Presentable presenter;
     private boolean isAngry;
+    private Image[] images;
     private ImageView presidentView;
-    private Image talkingImg;
-    private Image angryImg;
-    private Image drivingImg;
     private ImageView leftCarView;
     private ImageView rightCarView;
 
-    public President(Lock _leftCar, Lock _rightCar, String _name, Presentable presenter, ImageView _presidentView, Image _talkingImg, Image _angryImg, Image _drivingImg, ImageView _leftCarView, ImageView _rightCarView)
+    public President(Lock _leftCar, Lock _rightCar, String _name, Presentable presenter, ImageView _presidentView, Image[] images, ImageView _leftCarView, ImageView _rightCarView)
     {
         this.leftCar = _leftCar;
         this.rightCar = _rightCar;
         this.name = _name;
         this.presenter = presenter;
         this.isAngry = false;
+        this.images = images;
         this.presidentView = _presidentView;
-        this.talkingImg = _talkingImg;
-        this.angryImg = _angryImg;
-        this.drivingImg = _drivingImg;
         this.leftCarView = _leftCarView;
         this.rightCarView = _rightCarView;
     }
     public void talk()
     {
-        if (isAngry == false)
+        if (!isAngry)
         {
             try
             {
                 System.out.println(name + " is talking...");
                 Platform.runLater(() ->
                 {
-                    presidentView.setImage(talkingImg);
+                    presenter.showMe(getImage(PresidentState.TALKING));
+                    presidentView.setImage(getImage(PresidentState.TALKING));
                 });
                 Thread.sleep((long) (Math.random() * 15000));
             }
@@ -59,18 +58,17 @@ public class President implements Runnable
     public void drive()
     {
         System.out.println(name + " is angry...");
-        if (isAngry == true)
+        if (isAngry)
         {
-            Platform.runLater(() ->
-            {
-                presidentView.setImage(angryImg);
-            });
+            Platform.runLater(() -> presidentView.setImage(getImage(PresidentState.ANGRY)));
         }
         try
         {
             Thread.sleep((long) (Math.random() * 15000));
         }
-        catch (InterruptedException ex) { }
+        catch (InterruptedException ex) {
+            System.out.println(getName() + " interrupted when being angry");
+        }
         if (leftCar.tryLock())
         {
             try
@@ -82,7 +80,7 @@ public class President implements Runnable
                         System.out.println(name + " is driving...");
                         Platform.runLater(() ->
                         {
-                            presidentView.setImage(drivingImg);
+                            presidentView.setImage(getImage(PresidentState.DRIVING));
                             leftCarView.setVisible(false);
                             rightCarView.setVisible(false);
                         });
@@ -91,7 +89,9 @@ public class President implements Runnable
                         {
                             Thread.sleep((long) (Math.random() * 15000));
                         }
-                        catch (InterruptedException ex) { }
+                        catch (InterruptedException ex) {
+                            System.out.println(getName() + " interrupted when driving");
+                        }
                         Platform.runLater(() ->
                         {
                             leftCarView.setVisible(true);
@@ -122,9 +122,17 @@ public class President implements Runnable
         System.out.println(name + " stopped...");
         talk();
         Platform.runLater(() -> {
-            presidentView.setImage(talkingImg);
+            presidentView.setImage(getImage(PresidentState.TALKING));
             presenter.presidentIsStopped();
         });
 
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    private Image getImage(PresidentState state) {
+        return images[state.ordinal()];
     }
 }
