@@ -124,4 +124,9 @@ public class Controller implements Initializable, Presentable
             setButtonsToStart(true);
     }
 
+    @Override
+    public boolean presentationIsRunning() {
+        return running;
+    }
+
 }

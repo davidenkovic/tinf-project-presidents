@@ -5,12 +5,10 @@ import javafx.scene.image.ImageView;
 
 import java.util.concurrent.locks.Lock;
 
-import static drivingpresidents.Controller.running;
-
 
 public class President implements Runnable
 {
-    enum PresidentState {TALKING, ANGRY, DRIVING}
+    enum PresidentState { TALKING, ANGRY, DRIVING }
 
     private Lock leftCar;
     private Lock rightCar;
@@ -114,7 +112,7 @@ public class President implements Runnable
     @Override
     public void run()
     {
-        while (running)
+        while (presenter.presentationIsRunning())
         {
             talk();
             drive();
