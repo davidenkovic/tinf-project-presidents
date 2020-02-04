@@ -54,17 +54,12 @@ public class Controller implements Initializable, Presentable
 
     public static President[] presidents = new President[PRESIDENTS_COUNT];
     public static Lock[] policeCars = new ReentrantLock[PRESIDENTS_COUNT];
-    private List<Thread> presidentThreads = new ArrayList<>();
 
     @FXML
     private void handleButtonAction(ActionEvent event)
     {
         for (President p : presidents) {
-            presidentThreads.add(new Thread(p));
-        }
-
-        for (Thread p : presidentThreads) {
-            p.start();
+            new Thread(p).start();
             runningPresidentsCount++;
         }
         running = true;
