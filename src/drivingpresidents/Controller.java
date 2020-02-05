@@ -88,7 +88,11 @@ public class Controller implements Initializable, Presentable
 
             for(Map.Entry<President.PresidentState,ImageView> p : presidentHashMapErdogan.entrySet()){
                 if (c == President.PresidentState.TALKING){
-                    Platform.runLater(() -> { erdogan.setImage(erdoganImg[0]); });
+                    Platform.runLater(() -> {
+                        erdogan.setImage(erdoganImg[0]);
+                        police4.setVisible(true);
+                        police3.setVisible(true);
+                    });
                 }
                 if (c == President.PresidentState.ANGRY){
                     Platform.runLater(() -> { erdogan.setImage(erdoganImg[1]); });
@@ -107,7 +111,11 @@ public class Controller implements Initializable, Presentable
             HashMap<President.PresidentState,ImageView> presidentHashMapKim = new HashMap<>();
             for(Map.Entry<President.PresidentState,ImageView> p : presidentHashMapKim.entrySet()){
                 if (c == President.PresidentState.TALKING){
-                    Platform.runLater(() -> { kim.setImage(erdoganImg[0]); });
+                    Platform.runLater(() -> {
+                        kim.setImage(erdoganImg[0]);
+                        police2.setVisible(true);
+                        police3.setVisible(true);
+                    });
                 }
                 if (c == President.PresidentState.ANGRY){
                     Platform.runLater(() -> { kim.setImage(erdoganImg[1]); });
@@ -126,7 +134,11 @@ public class Controller implements Initializable, Presentable
             HashMap<President.PresidentState,ImageView> presidentHashMapTrump = new HashMap<>();
             for(Map.Entry<President.PresidentState,ImageView> p : presidentHashMapTrump.entrySet()){
                 if (c == President.PresidentState.TALKING){
-                    Platform.runLater(() -> { trump.setImage(erdoganImg[0]); });
+                    Platform.runLater(() -> {
+                        trump.setImage(erdoganImg[0]);
+                        police1.setVisible(true);
+                        police2.setVisible(true);
+                    });
                 }
                 if (c == President.PresidentState.ANGRY){ Platform.runLater(() -> { trump.setImage(erdoganImg[1]); });
                 }
@@ -144,7 +156,11 @@ public class Controller implements Initializable, Presentable
             HashMap<President.PresidentState,ImageView> presidentHashMapPutin = new HashMap<>();
             for(Map.Entry<President.PresidentState,ImageView> p : presidentHashMapPutin.entrySet()){
                 if (c == President.PresidentState.TALKING){
-                    Platform.runLater(() -> { putin.setImage(erdoganImg[0]); });
+                    Platform.runLater(() -> {
+                        putin.setImage(erdoganImg[0]);
+                        police1.setVisible(true);
+                        police5.setVisible(true);
+                    });
                 }
                 if (c == President.PresidentState.ANGRY){ Platform.runLater(() -> { putin.setImage(erdoganImg[1]); });
                 }
@@ -162,7 +178,11 @@ public class Controller implements Initializable, Presentable
 
             for(Map.Entry<President.PresidentState,ImageView> p : presidentHashMapObama.entrySet()){
                 if (c == President.PresidentState.TALKING){
-                    Platform.runLater(() -> { obama.setImage(erdoganImg[0]); });
+                    Platform.runLater(() -> {
+                        obama.setImage(erdoganImg[0]);
+                        police5.setVisible(false);
+                        police4.setVisible(false);
+                    });
                 }
                 if (c == President.PresidentState.ANGRY){
                     Platform.runLater(() ->{ obama.setImage(erdoganImg[1]); });
