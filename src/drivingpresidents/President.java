@@ -49,10 +49,8 @@ public class President implements Runnable
 
     public void talk()
     {
-        if (!isAngry)
-        {
-            try
-            {
+        if (!isAngry) {
+            try {
                 //System.out.println(name + " is talking...");
                 /*Platform.runLater(() ->
                 {
@@ -74,26 +72,20 @@ public class President implements Runnable
     public void drive()
     {
         //System.out.println(name + " is angry...");
-        if (isAngry)
-        {
+        if (isAngry) {
             //Platform.runLater(() -> presidentView.setImage(getImage(PresidentState.ANGRY)));
             this.presidentStateConsumer.accept(PresidentState.ANGRY);
         }
-        try
-        {
+        try {
             Thread.sleep((long) (Math.random() * 15000));
         }
         catch (InterruptedException ex) {
             System.out.println(getName() + " interrupted when being angry");
         }
-        if (leftCar.tryLock())
-        {
-            try
-            {
-                if (rightCar.tryLock())
-                {
-                    try
-                    {
+        if (leftCar.tryLock()) {
+            try {
+                if (rightCar.tryLock()) {
+                    try {
                         //System.out.println(name + " is driving...");
                         /*Platform.runLater(() ->
                         {
@@ -103,27 +95,23 @@ public class President implements Runnable
                         });*/
                         this.presidentStateConsumer.accept(PresidentState.DRIVING);
                         isAngry = false;
-                        try
-                        {
+                        try {
                             Thread.sleep((long) (Math.random() * 15000));
                         }
                         catch (InterruptedException ex) {
                             System.out.println(getName() + " interrupted when driving");
                         }
-                        Platform.runLater(() ->
-                        {
+                        Platform.runLater(() -> {
                             leftCarView.setVisible(true);
                             rightCarView.setVisible(true);
                         });
                     }
-                    finally
-                    {
+                    finally {
                         rightCar.unlock();
                     }
                 }
             }
-            finally
-            {
+            finally {
                 leftCar.unlock();
             }
         }
@@ -132,17 +120,15 @@ public class President implements Runnable
     @Override
     public void run()
     {
-        while (presenter.presentationIsRunning())
-        {
+        while (presenter.presentationIsRunning()) {
             talk();
             drive();
         }
         //System.out.println(name + " stopped...");
         talk();
-        /*Platform.runLater(() -> {
-            presidentView.setImage(getImage(PresidentState.TALKING));
+        Platform.runLater(() -> {
             presenter.presidentIsStopped();
-        });*/
+        });
         this.presidentStateConsumer.accept(PresidentState.TALKING);
 
     }
