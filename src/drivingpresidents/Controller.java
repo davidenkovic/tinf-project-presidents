@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.function.Consumer;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -86,11 +87,21 @@ public class Controller implements Initializable, Presentable
             policeCars[i] = new ReentrantLock();
         }
 
-        presidents[0] = new President(policeCars[0], policeCars[1], "erdogan", this, erdogan, erdoganImg, police4, police3);
-        presidents[1] = new President(policeCars[1], policeCars[2], "kim", this, kim, kimImg, police2, police3);
-        presidents[2] = new President(policeCars[2], policeCars[3], "trump", this, trump, trumpImg, police1, police2);
-        presidents[3] = new President(policeCars[3], policeCars[4], "putin", this, putin, putinImg, police1, police5);
-        presidents[4] = new President(policeCars[4], policeCars[0], "obama", this, obama, obamaImg, police5, police4);
+        presidents[0] = new President(policeCars[0], policeCars[1], "erdogan", this, erdogan, erdoganImg, police4, police3,c->{
+            System.out.println("erdogan is " + c);
+        });
+        presidents[1] = new President(policeCars[1], policeCars[2], "kim", this, kim, kimImg, police2, police3, c->{
+            System.out.println("kim is "+ c);
+        });
+        presidents[2] = new President(policeCars[2], policeCars[3], "trump", this, trump, trumpImg, police1, police2, c->{
+            System.out.println("trump is "+ c);
+        });
+        presidents[3] = new President(policeCars[3], policeCars[4], "putin", this, putin, putinImg, police1, police5, c->{
+            System.out.println("putin is "+ c);
+        });
+        presidents[4] = new President(policeCars[4], policeCars[0], "obama", this, obama, obamaImg, police5, police4, c->{
+            System.out.println("obama is "+ c);
+        });
     }
 
     private Image[] getImages(String presidentName) {
@@ -128,5 +139,6 @@ public class Controller implements Initializable, Presentable
     public boolean presentationIsRunning() {
         return running;
     }
+
 
 }
