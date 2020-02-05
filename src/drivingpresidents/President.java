@@ -3,6 +3,8 @@ import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.HashMap;
+import java.util.concurrent.CompletionService;
 import java.util.concurrent.locks.Lock;
 import java.util.function.Consumer;
 
@@ -23,6 +25,7 @@ public class President implements Runnable
     private ImageView presidentView;
     private ImageView leftCarView;
     private ImageView rightCarView;
+
 
     Consumer<PresidentState> presidentStateConsumer;
 
@@ -51,12 +54,14 @@ public class President implements Runnable
             try
             {
                 //System.out.println(name + " is talking...");
-                Platform.runLater(() ->
+                /*Platform.runLater(() ->
                 {
                     presenter.showMe(getImage(PresidentState.TALKING));
                     presidentView.setImage(getImage(PresidentState.TALKING));
-                });
+
+                });*/
                 this.presidentStateConsumer.accept(PresidentState.TALKING);
+
                 Thread.sleep((long) (Math.random() * 15000));
             }
             catch (InterruptedException ex) {
@@ -71,7 +76,7 @@ public class President implements Runnable
         //System.out.println(name + " is angry...");
         if (isAngry)
         {
-            Platform.runLater(() -> presidentView.setImage(getImage(PresidentState.ANGRY)));
+            //Platform.runLater(() -> presidentView.setImage(getImage(PresidentState.ANGRY)));
             this.presidentStateConsumer.accept(PresidentState.ANGRY);
         }
         try
@@ -90,12 +95,12 @@ public class President implements Runnable
                     try
                     {
                         //System.out.println(name + " is driving...");
-                        Platform.runLater(() ->
+                        /*Platform.runLater(() ->
                         {
                             presidentView.setImage(getImage(PresidentState.DRIVING));
                             leftCarView.setVisible(false);
                             rightCarView.setVisible(false);
-                        });
+                        });*/
                         this.presidentStateConsumer.accept(PresidentState.DRIVING);
                         isAngry = false;
                         try
@@ -134,10 +139,10 @@ public class President implements Runnable
         }
         //System.out.println(name + " stopped...");
         talk();
-        Platform.runLater(() -> {
+        /*Platform.runLater(() -> {
             presidentView.setImage(getImage(PresidentState.TALKING));
             presenter.presidentIsStopped();
-        });
+        });*/
         this.presidentStateConsumer.accept(PresidentState.TALKING);
 
     }
@@ -146,7 +151,7 @@ public class President implements Runnable
         return name;
     }
 
-    private Image getImage(PresidentState state) {
+    /*private Image getImage(PresidentState state) {
         return images[state.ordinal()];
-    }
+    }*/
 }
