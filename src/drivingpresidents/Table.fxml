@@ -40,27 +40,27 @@
         </ImageView>
         <ImageView fx:id="police1" fitHeight="150.0" fitWidth="150.0" layoutX="405.0" layoutY="580.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@img/Polizei1.png" />
+                <Image url="@img/Polizei.png" />
             </image>
         </ImageView>
         <ImageView fx:id="police2" fitHeight="150.0" fitWidth="150.0" layoutX="707.0" layoutY="450.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@img/Polizei2.png" />
+                <Image url="@img/Polizei.png" />
             </image>
         </ImageView>
         <ImageView fx:id="police3" fitHeight="150.0" fitWidth="150.0" layoutX="632.0" layoutY="151.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@img/Polizei3.png" />
+                <Image url="@img/Polizei.png" />
             </image>
         </ImageView>
         <ImageView fx:id="police4" fitHeight="150.0" fitWidth="150.0" layoutX="194.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@img/Polizei4.png" />
+                <Image url="@img/Polizei.png" />
             </image>
         </ImageView>
         <ImageView fx:id="police5" fitHeight="150.0" fitWidth="150.0" layoutX="102.0" layoutY="450.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@img/Polizei5.png" />
+                <Image url="@img/Polizei.png" />
             </image>
         </ImageView>
         <Button fx:id="stopButton" disable="true" layoutX="41.0" layoutY="100.0" onAction="#handleButtonStop" prefHeight="38.0" prefWidth="95.0" text="Stop">

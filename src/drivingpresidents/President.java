@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 
 
 public class President implements Runnable {
-    public static final int TIME_IN_STATE = 15000;
+    public static final int TIME_IN_STATE = 5000;
     //region Private fields
     private PoliceCar leftCar;
     private PoliceCar rightCar;
@@ -17,7 +17,7 @@ public class President implements Runnable {
     //endregion
 
     //region Enums
-    enum State {TALKING, ANGRY, DRIVING}
+    enum State {TALKING, ANGRY, DRIVING, DIRTY, CLEAN}
     //endregion
 
     //region Consumer
@@ -59,9 +59,12 @@ public class President implements Runnable {
             Thread.sleep((long) (Math.random() * TIME_IN_STATE));
         } catch (InterruptedException ex) {
             System.out.println(getName() + " interrupted when being angry");
-            leftCar.unlock();
-            rightCar.unlock();
+            returnPoliceCars();
+            presidentStateConsumer.accept(State.CLEAN);
         }
+        leftCar.makeDirty();
+        rightCar.makeDirty();
+        presidentStateConsumer.accept(State.DIRTY);
     }
 
     @Override
@@ -71,8 +74,8 @@ public class President implements Runnable {
                 talk();
                 getAngry();
             }
-            if (grabPoliceCar(leftCar)) {
-                if (grabPoliceCar(rightCar)) {
+            if (isAvailable(leftCar)) {
+                if (isAvailable(rightCar)) {
                     drive();
                     returnToTalking();
                 }
@@ -90,15 +93,33 @@ public class President implements Runnable {
     private void getAngry() {
         state = State.ANGRY;
         presidentStateConsumer.accept(state);
+        leftCar.getLeftPresident().borrowYourCarTo(this, rightCar);
+        rightCar.getRightPresident().borrowYourCarTo(this, leftCar);
     }
 
-    private boolean grabPoliceCar(Lock car) {
-        return car.tryLock();
+    private boolean isAvailable(PoliceCar car) {
+        return car.isAssignedTo(this);
     }
 
     private void returnPoliceCars() {
         System.out.println(name + " is coming back");
-        leftCar.unlock();
-        rightCar.unlock();
+        returnReservedCar(leftCar);
+        returnReservedCar(rightCar);
+    }
+
+    private void returnReservedCar(PoliceCar car) {
+        if (car.isReserved()) {
+            car.clean();
+            car.assignTo(car.getPresidentWhoReserved());
+        }
+    }
+
+    public void borrowYourCarTo(President president, PoliceCar whichCar) {
+        if (whichCar.isDirty()) {
+            whichCar.clean();
+            whichCar.assignTo(president);
+        } else {
+            whichCar.reserveFor(president);
+        }
     }
 }
