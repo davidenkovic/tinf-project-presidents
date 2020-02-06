@@ -16,10 +16,13 @@ import javafx.scene.image.ImageView;
 
 public class Controller implements Initializable, Presentable
 {
+    //region Constant variable
     public static final int PRESIDENTS_COUNT = 5;
     public static boolean running = true;
+    //endregion
 
 
+    //region President Image[] and ImageView
     @FXML
     public ImageView erdogan;
     public Image[] erdoganImg;
@@ -35,7 +38,9 @@ public class Controller implements Initializable, Presentable
     @FXML
     public ImageView obama;
     public Image[] obamaImg;
+    //endregion
 
+    //region Police ImageViews
     @FXML
     public ImageView police1;
     @FXML
@@ -46,14 +51,23 @@ public class Controller implements Initializable, Presentable
     public ImageView police4;
     @FXML
     public ImageView police5;
+    //endregion
+
+    //region Buttons
     public Button startButton;
     public Button stopButton;
+    //endregion
 
+    //region Counter
     int runningPresidentsCount = 0;
+    //endregion
 
+    //region President and Lock variable array
     public static President[] presidents = new President[PRESIDENTS_COUNT];
     public static Lock[] policeCars = new ReentrantLock[PRESIDENTS_COUNT];
+    //endregion
 
+    //region HandleButtons
     @FXML
     private void handleButtonAction(ActionEvent event)
     {
@@ -70,6 +84,7 @@ public class Controller implements Initializable, Presentable
     {
         running = false;
     }
+    //endregion
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -98,9 +113,7 @@ public class Controller implements Initializable, Presentable
                     });
                 }
                 if (c == President.PresidentState.ANGRY){
-                    Platform.runLater(() -> {
-                        erdogan.setImage(erdoganImg[1]);
-                    });
+                    Platform.runLater(() -> erdogan.setImage(erdoganImg[1]));
                 }
                 if (c == President.PresidentState.DRIVING){
                     Platform.runLater(() -> {
@@ -126,10 +139,7 @@ public class Controller implements Initializable, Presentable
                     });
                 }
                 if (c == President.PresidentState.ANGRY){
-                    Platform.runLater(() -> {
-                        kim.setImage(kimImg[1]);
-
-                    });
+                    Platform.runLater(() -> kim.setImage(kimImg[1]));
                 }
                 if (c == President.PresidentState.DRIVING){
                     Platform.runLater(() -> {
@@ -155,9 +165,7 @@ public class Controller implements Initializable, Presentable
                     });
                 }
                 if (c == President.PresidentState.ANGRY){
-                    Platform.runLater(() -> {
-                    trump.setImage(trumpImg[1]);
-                });
+                    Platform.runLater(() -> trump.setImage(trumpImg[1]));
                 }
                 if (c == President.PresidentState.DRIVING){
                     Platform.runLater(() -> {
@@ -183,9 +191,7 @@ public class Controller implements Initializable, Presentable
                     });
                 }
                 if (c == President.PresidentState.ANGRY){
-                    Platform.runLater(() -> {
-                        putin.setImage(putinImg[1]);
-                    });
+                    Platform.runLater(() -> putin.setImage(putinImg[1]));
                 }
                 if (c == President.PresidentState.DRIVING){
                     Platform.runLater(() -> {
@@ -212,9 +218,7 @@ public class Controller implements Initializable, Presentable
                     });
                 }
                 if (c == President.PresidentState.ANGRY){
-                    Platform.runLater(() ->{
-                        obama.setImage(obamaImg[1]);
-                    });
+                    Platform.runLater(() -> obama.setImage(obamaImg[1]));
                 }
                 if (c == President.PresidentState.DRIVING){
                     Platform.runLater(() -> {
@@ -246,14 +250,9 @@ public class Controller implements Initializable, Presentable
         stopButton.setDisable(isOn);
     }
 
+    //region Presentable methods
     @Override
-    public void showMe(Image image) {
-
-    }
-
-    @Override
-    public void presidentIsStopped()
-    {
+    public void presidentIsStopped() {
         runningPresidentsCount--;
         if (runningPresidentsCount == 0)
             setButtonsToStart(true);
@@ -263,4 +262,5 @@ public class Controller implements Initializable, Presentable
     public boolean presentationIsRunning() {
         return running;
     }
+    //endregion
 }
