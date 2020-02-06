@@ -1,10 +1,9 @@
 package drivingpresidents;
+
 import java.net.URL;
-import java.security.KeyPair;
 import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.function.Consumer;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -14,8 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Controller implements Initializable, Presentable
-{
+public class Controller implements Initializable, Presentable {
     //region Constant variable
     public static final int PRESIDENTS_COUNT = 5;
     public static boolean running = true;
@@ -69,8 +67,7 @@ public class Controller implements Initializable, Presentable
 
     //region HandleButtons
     @FXML
-    private void handleButtonAction(ActionEvent event)
-    {
+    private void handleButtonAction(ActionEvent event) {
         for (President p : presidents) {
             new Thread(p).start();
             runningPresidentsCount++;
@@ -80,15 +77,13 @@ public class Controller implements Initializable, Presentable
     }
 
     @FXML
-    private void handleButtonStop(ActionEvent event)
-    {
+    private void handleButtonStop(ActionEvent event) {
         running = false;
     }
     //endregion
 
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void initialize(URL url, ResourceBundle rb) {
         erdoganImg = getImages("erdogan");
         kimImg = getImages("kim");
         obamaImg = getImages("obama");
@@ -99,137 +94,11 @@ public class Controller implements Initializable, Presentable
             policeCars[i] = new ReentrantLock();
         }
 
-        presidents[0] = new President(policeCars[0], policeCars[1], "erdogan", this, erdogan, erdoganImg, police4, police3, c->{
-            HashMap<President.PresidentState,ImageView> presidentHashMapErdogan = new HashMap<>();
-
-            presidentHashMapErdogan.put(c,erdogan);
-
-            for(Map.Entry<President.PresidentState,ImageView> p : presidentHashMapErdogan.entrySet()){
-                if (c == President.PresidentState.TALKING){
-                    Platform.runLater(() -> {
-                        erdogan.setImage(erdoganImg[0]);
-                        police4.setVisible(true);
-                        police3.setVisible(true);
-                    });
-                }
-                if (c == President.PresidentState.ANGRY){
-                    Platform.runLater(() -> erdogan.setImage(erdoganImg[1]));
-                }
-                if (c == President.PresidentState.DRIVING){
-                    Platform.runLater(() -> {
-                        erdogan.setImage(erdoganImg[2]);
-                        police4.setVisible(false);
-                        police3.setVisible(false);
-                    });
-                }
-            }
-            System.out.println("erdogan is " + c);
-        });
-        presidents[1] = new President(policeCars[1], policeCars[2], "kim", this, kim, kimImg, police2, police3, c->{
-            HashMap<President.PresidentState,ImageView> presidentHashMapKim = new HashMap<>();
-
-            presidentHashMapKim.put(c,kim);
-
-            for(Map.Entry<President.PresidentState,ImageView> p : presidentHashMapKim.entrySet()){
-                if (c == President.PresidentState.TALKING){
-                    Platform.runLater(() -> {
-                        kim.setImage(kimImg[0]);
-                        police2.setVisible(true);
-                        police3.setVisible(true);
-                    });
-                }
-                if (c == President.PresidentState.ANGRY){
-                    Platform.runLater(() -> kim.setImage(kimImg[1]));
-                }
-                if (c == President.PresidentState.DRIVING){
-                    Platform.runLater(() -> {
-                        kim.setImage(kimImg[2]);
-                        police2.setVisible(false);
-                        police3.setVisible(false);
-                    });
-                }
-            }
-            System.out.println("kim is "+ c);
-        });
-        presidents[2] = new President(policeCars[2], policeCars[3], "trump", this, trump, trumpImg, police1, police2, c->{
-            HashMap<President.PresidentState,ImageView> presidentHashMapTrump = new HashMap<>();
-
-            presidentHashMapTrump.put(c,trump);
-
-            for(Map.Entry<President.PresidentState,ImageView> p : presidentHashMapTrump.entrySet()){
-                if (c == President.PresidentState.TALKING){
-                    Platform.runLater(() -> {
-                        trump.setImage(trumpImg[0]);
-                        police1.setVisible(true);
-                        police2.setVisible(true);
-                    });
-                }
-                if (c == President.PresidentState.ANGRY){
-                    Platform.runLater(() -> trump.setImage(trumpImg[1]));
-                }
-                if (c == President.PresidentState.DRIVING){
-                    Platform.runLater(() -> {
-                        trump.setImage(trumpImg[2]);
-                        police1.setVisible(false);
-                        police2.setVisible(false);
-                    });
-                }
-            }
-            System.out.println("trump is "+ c);
-        });
-        presidents[3] = new President(policeCars[3], policeCars[4], "putin", this, putin, putinImg, police1, police5, c->{
-            HashMap<President.PresidentState,ImageView> presidentHashMapPutin = new HashMap<>();
-
-            presidentHashMapPutin.put(c,putin);
-
-            for(Map.Entry<President.PresidentState,ImageView> p : presidentHashMapPutin.entrySet()){
-                if (c == President.PresidentState.TALKING){
-                    Platform.runLater(() -> {
-                        putin.setImage(putinImg[0]);
-                        police1.setVisible(true);
-                        police5.setVisible(true);
-                    });
-                }
-                if (c == President.PresidentState.ANGRY){
-                    Platform.runLater(() -> putin.setImage(putinImg[1]));
-                }
-                if (c == President.PresidentState.DRIVING){
-                    Platform.runLater(() -> {
-                        putin.setImage(putinImg[2]);
-                        police1.setVisible(false);
-                        police5.setVisible(false);
-                    });
-                }
-            }
-            System.out.println("putin is "+ c);
-        });
-        presidents[4] = new President(policeCars[4], policeCars[0], "obama", this, obama, obamaImg, police5, police4, c->{
-            HashMap<President.PresidentState,ImageView> presidentHashMapObama = new HashMap<>();
-
-            presidentHashMapObama.put(c,obama);
-
-
-            for(Map.Entry<President.PresidentState,ImageView> p : presidentHashMapObama.entrySet()){
-                if (c == President.PresidentState.TALKING){
-                    Platform.runLater(() -> {
-                        obama.setImage(obamaImg[0]);
-                        police5.setVisible(true);
-                        police4.setVisible(true);
-                    });
-                }
-                if (c == President.PresidentState.ANGRY){
-                    Platform.runLater(() -> obama.setImage(obamaImg[1]));
-                }
-                if (c == President.PresidentState.DRIVING){
-                    Platform.runLater(() -> {
-                        obama.setImage(obamaImg[2]);
-                        police5.setVisible(false);
-                        police4.setVisible(false);
-                    });
-                }
-            }
-            System.out.println("Obama is "+ c);
-        });
+        presidents[0] = new President(policeCars[0], policeCars[1], "erdogan", this, this::handleErdoganImages);
+        presidents[1] = new President(policeCars[1], policeCars[2], "kim", this, this::handleKimImages);
+        presidents[2] = new President(policeCars[2], policeCars[3], "trump", this, this::handleTrumpImages);
+        presidents[3] = new President(policeCars[3], policeCars[4], "putin", this, this::handlePutinImages);
+        presidents[4] = new President(policeCars[4], policeCars[0], "obama", this, this::handleObamaImages);
     }
 
     private Image[] getImages(String presidentName) {
@@ -261,6 +130,51 @@ public class Controller implements Initializable, Presentable
     @Override
     public boolean presentationIsRunning() {
         return running;
+    }
+
+    private void handleErdoganImages(President.PresidentState c) {
+        setPresidentImages(c, erdogan, erdoganImg, police4, police3);
+        System.out.println("erdogan is " + c);
+    }
+
+    private void setPresidentImages(President.PresidentState c, ImageView presidentImageView, Image[] presidentImage, ImageView leftPolice, ImageView rightPolice) {
+        if (c == President.PresidentState.TALKING) {
+            Platform.runLater(() -> {
+                presidentImageView.setImage(presidentImage[0]);
+                leftPolice.setVisible(true);
+                rightPolice.setVisible(true);
+            });
+        }
+        if (c == President.PresidentState.ANGRY) {
+            Platform.runLater(() -> presidentImageView.setImage(presidentImage[1]));
+        }
+        if (c == President.PresidentState.DRIVING) {
+            Platform.runLater(() -> {
+                presidentImageView.setImage(presidentImage[2]);
+                leftPolice.setVisible(false);
+                rightPolice.setVisible(false);
+            });
+        }
+    }
+
+    private void handleKimImages(President.PresidentState c) {
+        setPresidentImages(c, kim, kimImg, police2, police3);
+        System.out.println("kim is " + c);
+    }
+
+    private void handleTrumpImages(President.PresidentState c) {
+        setPresidentImages(c, trump, trumpImg, police1, police2);
+        System.out.println("trump is " + c);
+    }
+
+    private void handlePutinImages(President.PresidentState c) {
+        setPresidentImages(c, putin, putinImg, police1, police5);
+        System.out.println("putin is " + c);
+    }
+
+    private void handleObamaImages(President.PresidentState c) {
+        setPresidentImages(c, obama, obamaImg, police5, police4);
+        System.out.println("Obama is " + c);
     }
     //endregion
 }

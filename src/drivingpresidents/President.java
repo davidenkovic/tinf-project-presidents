@@ -27,7 +27,7 @@ public class President implements Runnable
     //endregion
 
     //region Constructor
-    public President(Lock _leftCar, Lock _rightCar, String _name, Presentable presenter, ImageView _presidentView, Image[] images, ImageView _leftCarView, ImageView _rightCarView,Consumer<PresidentState> _presidentStateConsumer )
+    public President(Lock _leftCar, Lock _rightCar, String _name, Presentable presenter,Consumer<PresidentState> _presidentStateConsumer )
     {
         this.leftCar = _leftCar;
         this.rightCar = _rightCar;
