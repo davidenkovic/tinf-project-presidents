@@ -99,8 +99,8 @@ public class Controller implements Initializable, Presentable
                 if (c == President.PresidentState.ANGRY){
                     Platform.runLater(() -> {
                         erdogan.setImage(erdoganImg[1]);
-                        police4.setVisible(true);
-                        police3.setVisible(true);
+
+                        //laufen nicht parallel
                     });
                 }
                 if (c == President.PresidentState.DRIVING){
@@ -129,8 +129,7 @@ public class Controller implements Initializable, Presentable
                 if (c == President.PresidentState.ANGRY){
                     Platform.runLater(() -> {
                         kim.setImage(kimImg[1]);
-                        police2.setVisible(true);
-                        police3.setVisible(true);
+
                     });
                 }
                 if (c == President.PresidentState.DRIVING){
@@ -159,8 +158,6 @@ public class Controller implements Initializable, Presentable
                 if (c == President.PresidentState.ANGRY){
                     Platform.runLater(() -> {
                     trump.setImage(trumpImg[1]);
-                    police1.setVisible(true);
-                    police2.setVisible(true);
                 });
                 }
                 if (c == President.PresidentState.DRIVING){
@@ -189,8 +186,6 @@ public class Controller implements Initializable, Presentable
                 if (c == President.PresidentState.ANGRY){
                     Platform.runLater(() -> {
                         putin.setImage(putinImg[1]);
-                        police1.setVisible(true);
-                        police5.setVisible(true);
                     });
                 }
                 if (c == President.PresidentState.DRIVING){
@@ -220,8 +215,6 @@ public class Controller implements Initializable, Presentable
                 if (c == President.PresidentState.ANGRY){
                     Platform.runLater(() ->{
                         obama.setImage(obamaImg[1]);
-                        police5.setVisible(true);
-                        police4.setVisible(true);
                     });
                 }
                 if (c == President.PresidentState.DRIVING){
