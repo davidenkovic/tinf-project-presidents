@@ -62,7 +62,6 @@ public class Controller implements Initializable, Presentable {
 
     //region President and Lock variable array
     public static President[] presidents = new President[PRESIDENTS_COUNT];
-    public static Lock[] policeCars = new ReentrantLock[PRESIDENTS_COUNT];
     //endregion
 
     //region HandleButtons
@@ -90,15 +89,12 @@ public class Controller implements Initializable, Presentable {
         trumpImg = getImages("trump");
         putinImg = getImages("putin");
 
-        for (int i = 0; i < PRESIDENTS_COUNT; i++) {
-            policeCars[i] = new ReentrantLock();
-        }
 
-        presidents[0] = new President(policeCars[0], policeCars[1], "erdogan", this, this::handleErdoganImages);
-        presidents[1] = new President(policeCars[1], policeCars[2], "kim", this, this::handleKimImages);
-        presidents[2] = new President(policeCars[2], policeCars[3], "trump", this, this::handleTrumpImages);
-        presidents[3] = new President(policeCars[3], policeCars[4], "putin", this, this::handlePutinImages);
-        presidents[4] = new President(policeCars[4], policeCars[0], "obama", this, this::handleObamaImages);
+        presidents[0] = new President(new PoliceCar(), new PoliceCar(), "erdogan", this, this::handleErdoganImages);
+        presidents[1] = new President(new PoliceCar(), new PoliceCar(), "kim", this, this::handleKimImages);
+        presidents[2] = new President(new PoliceCar(), new PoliceCar(), "trump", this, this::handleTrumpImages);
+        presidents[3] = new President(new PoliceCar(), new PoliceCar(), "putin", this, this::handlePutinImages);
+        presidents[4] = new President(new PoliceCar(), new PoliceCar(), "obama", this, this::handleObamaImages);
     }
 
     private Image[] getImages(String presidentName) {

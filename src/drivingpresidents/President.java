@@ -9,11 +9,10 @@ import java.util.function.Consumer;
 public class President implements Runnable {
     public static final int TIME_IN_STATE = 15000;
     //region Private fields
-    private Lock leftCar;
-    private Lock rightCar;
+    private PoliceCar leftCar;
+    private PoliceCar rightCar;
     private String name;
     private Presentable presenter;
-    private boolean isAngry;
     private State state;
     //endregion
 
@@ -26,12 +25,13 @@ public class President implements Runnable {
     //endregion
 
     //region Constructor
-    public President(Lock _leftCar, Lock _rightCar, String _name, Presentable presenter, Consumer<State> _presidentStateConsumer) {
+    public President(PoliceCar _leftCar, PoliceCar _rightCar, String _name, Presentable presenter, Consumer<State> _presidentStateConsumer) {
         this.leftCar = _leftCar;
+        this.leftCar.setRightPresident(this);
         this.rightCar = _rightCar;
+        this.rightCar.setLeftPresident(this);
         this.name = _name;
         this.presenter = presenter;
-        this.isAngry = false;
         this.state = State.TALKING;
         this.presidentStateConsumer = _presidentStateConsumer;
     }
