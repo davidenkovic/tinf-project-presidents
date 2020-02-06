@@ -132,23 +132,23 @@ public class Controller implements Initializable, Presentable {
         return running;
     }
 
-    private void handleErdoganImages(President.PresidentState c) {
+    private void handleErdoganImages(President.State c) {
         setPresidentImages(c, erdogan, erdoganImg, police4, police3);
         System.out.println("erdogan is " + c);
     }
 
-    private void setPresidentImages(President.PresidentState c, ImageView presidentImageView, Image[] presidentImage, ImageView leftPolice, ImageView rightPolice) {
-        if (c == President.PresidentState.TALKING) {
+    private void setPresidentImages(President.State c, ImageView presidentImageView, Image[] presidentImage, ImageView leftPolice, ImageView rightPolice) {
+        if (c == President.State.TALKING) {
             Platform.runLater(() -> {
                 presidentImageView.setImage(presidentImage[0]);
                 leftPolice.setVisible(true);
                 rightPolice.setVisible(true);
             });
         }
-        if (c == President.PresidentState.ANGRY) {
+        if (c == President.State.ANGRY) {
             Platform.runLater(() -> presidentImageView.setImage(presidentImage[1]));
         }
-        if (c == President.PresidentState.DRIVING) {
+        if (c == President.State.DRIVING) {
             Platform.runLater(() -> {
                 presidentImageView.setImage(presidentImage[2]);
                 leftPolice.setVisible(false);
@@ -157,22 +157,22 @@ public class Controller implements Initializable, Presentable {
         }
     }
 
-    private void handleKimImages(President.PresidentState c) {
+    private void handleKimImages(President.State c) {
         setPresidentImages(c, kim, kimImg, police2, police3);
         System.out.println("kim is " + c);
     }
 
-    private void handleTrumpImages(President.PresidentState c) {
+    private void handleTrumpImages(President.State c) {
         setPresidentImages(c, trump, trumpImg, police1, police2);
         System.out.println("trump is " + c);
     }
 
-    private void handlePutinImages(President.PresidentState c) {
+    private void handlePutinImages(President.State c) {
         setPresidentImages(c, putin, putinImg, police1, police5);
         System.out.println("putin is " + c);
     }
 
-    private void handleObamaImages(President.PresidentState c) {
+    private void handleObamaImages(President.State c) {
         setPresidentImages(c, obama, obamaImg, police5, police4);
         System.out.println("Obama is " + c);
     }
