@@ -19,6 +19,7 @@ public class Controller implements Initializable, Presentable
     public static final int PRESIDENTS_COUNT = 5;
     public static boolean running = true;
 
+
     @FXML
     public ImageView erdogan;
     public Image[] erdoganImg;
@@ -99,8 +100,6 @@ public class Controller implements Initializable, Presentable
                 if (c == President.PresidentState.ANGRY){
                     Platform.runLater(() -> {
                         erdogan.setImage(erdoganImg[1]);
-
-                        //laufen nicht parallel
                     });
                 }
                 if (c == President.PresidentState.DRIVING){
