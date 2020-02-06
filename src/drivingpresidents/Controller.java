@@ -228,7 +228,7 @@ public class Controller implements Initializable, Presentable
                     });
                 }
             }
-            System.out.println("obama is "+ c);
+            System.out.println("Obama is "+ c);
         });
     }
 
