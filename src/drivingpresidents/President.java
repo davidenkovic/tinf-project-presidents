@@ -2,7 +2,6 @@ package drivingpresidents;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import java.util.HashMap;
 import java.util.concurrent.CompletionService;
 import java.util.concurrent.locks.Lock;
@@ -101,10 +100,10 @@ public class President implements Runnable
                         catch (InterruptedException ex) {
                             System.out.println(getName() + " interrupted when driving");
                         }
-                        Platform.runLater(() -> {
+                        /*Platform.runLater(() -> {
                             leftCarView.setVisible(true);
                             rightCarView.setVisible(true);
-                        });
+                        });*/
                     }
                     finally {
                         rightCar.unlock();
