@@ -1,9 +1,9 @@
 package drivingpresidents;
+
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import java.util.HashMap;
-import java.util.concurrent.CompletionService;
+
 import java.util.concurrent.locks.Lock;
 import java.util.function.Consumer;
 
@@ -19,7 +19,7 @@ public class President implements Runnable
     private Presentable presenter;
     private boolean isAngry;
 
-    private Image[] images;
+    //private Image[] images;
 
     private ImageView presidentView;
     private ImageView leftCarView;
@@ -37,11 +37,11 @@ public class President implements Runnable
         this.presenter = presenter;
         this.isAngry = false;
 
-        this.images = images;
+        //this.images = images;
         
-        this.presidentView = _presidentView;
+        /*this.presidentView = _presidentView;
         this.leftCarView = _leftCarView;
-        this.rightCarView = _rightCarView;
+        this.rightCarView = _rightCarView;*/
 
         this.presidentStateConsumer = _presidentStateConsumer;
     }
@@ -50,13 +50,6 @@ public class President implements Runnable
     {
         if (!isAngry) {
             try {
-                //System.out.println(name + " is talking...");
-                /*Platform.runLater(() ->
-                {
-                    presenter.showMe(getImage(PresidentState.TALKING));
-                    presidentView.setImage(getImage(PresidentState.TALKING));
-
-                });*/
                 this.presidentStateConsumer.accept(PresidentState.TALKING);
 
                 Thread.sleep((long) (Math.random() * 15000));
@@ -70,9 +63,7 @@ public class President implements Runnable
     }
     public void drive()
     {
-        //System.out.println(name + " is angry...");
         if (isAngry) {
-            //Platform.runLater(() -> presidentView.setImage(getImage(PresidentState.ANGRY)));
             this.presidentStateConsumer.accept(PresidentState.ANGRY);
         }
         try {
@@ -85,13 +76,6 @@ public class President implements Runnable
             try {
                 if (rightCar.tryLock()) {
                     try {
-                        //System.out.println(name + " is driving...");
-                        /*Platform.runLater(() ->
-                        {
-                            presidentView.setImage(getImage(PresidentState.DRIVING));
-                            leftCarView.setVisible(false);
-                            rightCarView.setVisible(false);
-                        });*/
                         this.presidentStateConsumer.accept(PresidentState.DRIVING);
                         isAngry = false;
                         try {
@@ -100,10 +84,6 @@ public class President implements Runnable
                         catch (InterruptedException ex) {
                             System.out.println(getName() + " interrupted when driving");
                         }
-                        /*Platform.runLater(() -> {
-                            leftCarView.setVisible(true);
-                            rightCarView.setVisible(true);
-                        });*/
                     }
                     finally {
                         rightCar.unlock();
@@ -123,7 +103,6 @@ public class President implements Runnable
             talk();
             drive();
         }
-        //System.out.println(name + " stopped...");
         talk();
         Platform.runLater(() -> {
             presenter.presidentIsStopped();
@@ -136,7 +115,4 @@ public class President implements Runnable
         return name;
     }
 
-    /*private Image getImage(PresidentState state) {
-        return images[state.ordinal()];
-    }*/
 }
